@@ -85,7 +85,7 @@ Próximo refinamento possível: packshots oficiais Original e Zero em maior reso
 - Refresh, resize e navegação de cenas foram exercitados. O estado é sincronizado depois do refresh do ScrollTrigger e o controlador interativo usa poses independentes.
 - Back/forward na aba de preview: verificado.
 
-Medição local no navegador integrado, viewport 1440 × 900, durante a troca de produtos: **120 frames; média 16,67 ms; p95 17,4 ms; máximo 17,7 ms; CLS 0; zero long tasks**. É uma amostra dessa interação nesse ambiente, não uma garantia universal de FPS. Os assets somam aproximadamente 984 KiB; sem render loop contínuo próprio, WebGL ou vídeos.
+Medição local no navegador integrado, viewport 1440 × 900, durante a troca de produtos: **120 frames; média 16,67 ms; p95 17,4 ms; máximo 17,7 ms; CLS 0; zero long tasks**. É uma amostra dessa interação nesse ambiente, não uma garantia universal de FPS. Os assets principais somam aproximadamente 984 KiB; os masters de fallback são carregados apenas em caso de erro; sem render loop contínuo próprio, WebGL ou vídeos.
 
 Verificação retomada em 13/10/2026: Safari desktop e Google Chrome nativos foram exercitados com a versão atual. Hero, navegação entre cenas, seletor final, trocas rápidas e refresh funcionaram nos dois. A troca guiada por scroll e sua reversão também foram confirmadas no Safari. Screenshots dessa verificação foram salvos na pasta de entrega.
 
@@ -94,3 +94,14 @@ Limite de verificação: as dimensões exatas e as métricas de performance acim
 ## Arquivos editáveis
 
 `index.html`: conteúdo e estrutura. `styles.css`: identidade e responsive. `app.js`: controlador, master timeline e interações. `content.js`: dados dos produtos e campanhas. `assets/`: arquivos oficiais otimizados. `vendor/`: GSAP e ScrollTrigger locais.
+
+
+## Correção da mídia da terceira seção — 13/10/2026
+
+Causa reproduzida: ao selecionar Em casa e depois No campo, o GSAP mantinha `x = 720.008 px` derivado do `translateX(100%)` inicial do CSS. A animação terminava com `xPercent = 0`, mas o deslocamento em pixels permanecia. O packshot da campanha estava carregado (770 × 440; HTTP 200), visível e opaco, porém inteiramente fora da galeria e cortado pelo overflow.
+
+Correção restrita a CampaignGallery: zerar x/y antes da animação; normalizar a foto ativa ao terminar, após resize e pageshow. Nenhum CSS, controlador de produto ou timeline global foi alterado. O script tem chave de versão para evitar que reload normal reutilize a versão anterior em cache.
+
+Fallback: data-fallback aponta para cópias dos masters oficiais já existentes no trabalho — culture-natal-fallback.jpg, culture-pipoca-fallback.png e culture-futebol-fallback.png. A imagem correspondente substitui o WebP somente em caso de erro. Não houve geração de imagem ou mudança de crop/composição.
+
+Verificação específica desta correção: sequência problemática, entrada/reversão, reload em #coisa-nossa, resize e alinhamento final em 1440/1280/390/430 no navegador integrado. A foto ativa terminou em translate(0,0), visibility visible, opacity 1, object-fit cover. Chrome nativo: hard refresh, sequência problemática e reload normal exercitados, com prova visual. Os três fallbacks foram carregados com sucesso em fixture isolada que simula falha dos WebPs. Sintaxe e 24 arquivos locais: PASS. Safari nativo: verificação interrompida por uso ativo do aplicativo; a prova visual desta correção não foi concluída. Sem deploy.

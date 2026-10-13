@@ -65,18 +65,35 @@
  const product=new ProductExperience();
 
  class CampaignGallery {
-  constructor(){this.current=0;this.manual=false;this.animation=null;this.images=all('[data-photo]');}
+  constructor(){
+   this.current=0;this.manual=false;this.animation=null;this.images=all('[data-photo]');
+   this.images.forEach(el=>{
+    const img=el.querySelector('img');
+    const fallback=()=>{const src=img.dataset.fallback;delete img.dataset.fallback;if(src)img.src=src;};
+    img.addEventListener('error',fallback);
+    if(img.complete&&!img.naturalWidth)fallback();
+   });
+   const restore=()=>requestAnimationFrame(()=>this.settle());
+   window.addEventListener('resize',restore);window.addEventListener('pageshow',restore);
+  }
+  settle(){
+   this.animation?.kill();this.animation=null;
+   if(window.gsap&&mode!=='static'&&!reduced.matches){
+    this.images.forEach((el,i)=>gsap.set(el,{x:0,y:0,xPercent:i===this.current?0:100,visibility:i===this.current?'visible':'hidden',zIndex:i===this.current?2:0}));
+   }else this.images.forEach(el=>['transform','translate','rotate','scale','visibility','z-index'].forEach(key=>el.style.removeProperty(key)));
+  }
   select(index,manual=false){
    this.manual=manual||this.manual;index=clamp(index,0,data.campaigns.length-1);if(index===this.current)return;
    this.animation?.kill();const previous=this.current, direction=index>previous?1:-1;this.current=index;
    const copy=data.campaigns[index];q('[data-campaign-title]').textContent=copy.title;q('[data-campaign-copy]').textContent=copy.copy;q('[data-campaign-link]').href=copy.url;
    all('[data-campaign]').forEach(el=>el.setAttribute('aria-pressed',String(+el.dataset.campaign===index)));
    this.images.forEach((el,i)=>{el.classList.toggle('is-active',i===index);el.setAttribute('aria-hidden',String(i!==index));});
-   if(mode==='static'||reduced.matches)return;
-   gsap.set(this.images,{visibility:'hidden',xPercent:100});
+   if(mode==='static'||reduced.matches){this.settle();return;}
+   // Reset CSS-derived pixel translation before animating percentage translation.
+   gsap.set(this.images,{x:0,y:0,visibility:'hidden',xPercent:100});
    gsap.set(this.images[previous],{visibility:'visible',xPercent:0,zIndex:1});
    gsap.set(this.images[index],{visibility:'visible',xPercent:100*direction,zIndex:2});
-   this.animation=gsap.timeline({onComplete:()=>gsap.set(this.images[previous],{visibility:'hidden'})})
+   this.animation=gsap.timeline({onComplete:()=>this.settle()})
     .to(this.images[previous],{xPercent:-25*direction,duration:.65,ease:'power3.inOut'},0)
     .to(this.images[index],{xPercent:0,duration:.65,ease:'power3.inOut'},0);
   }
