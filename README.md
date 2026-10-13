@@ -1,64 +1,96 @@
-# Guaraná Antarctica — primeira entrega local
-
-Escopo: header, hero, entrada animada, primeiro scroll e transição para a origem. Os capítulos Brasil e Produto ficam para a próxima etapa visual. Nenhum site foi registrado, publicado ou conectado a um domínio.
+# Guaraná Antarctica — redesign local
 
 Preview: http://127.0.0.1:5187/
 
-Para iniciar novamente, a partir desta pasta: `python3 -m http.server 5187 --bind 127.0.0.1`.
+Quatro momentos: hero e troca Original → Zero; produtos com linguagem oficial; É coisa nossa e campanhas; seleção final e footer. A seção anterior de Maués foi retirada do HTML, CSS, animações, navegação e assets servidos.
 
-## Pesquisa oficial
+## Checkpoint e stack
 
-Consultada em 12 de outubro de 2026. O site respondeu ao navegador, embora a ferramenta de busca tenha encontrado proteção anti-bot.
+Checkpoint anterior às alterações: `041cca7`, branch `main`. A pasta não tinha Git; foi iniciado um repositório apenas neste projeto. Os assets e o código anteriores permanecem recuperáveis nesse commit.
 
-- [Site oficial Brasil](https://www.guaranaantarctica.com.br/pt-br): navegação Produtos, Maués e Nossa História; produto Regular e Zero; fotografia com gotas; verde, vermelho, branco e amarelo; grafismos de folhas; tom simples e brasileiro.
-- [Maués](https://www.guaranaantarctica.com.br/pt-br/maues): confirma “Original do Brasil”, a origem amazônica, o vínculo com Maués e o cultivo do fruto. A copy curta do projeto é editorial, baseada nesses fatos; não é apresentada como uma citação da marca.
-- [Relatório Ambev](https://www.ambev.com.br/sites/g/files/wnfebl5836/files/2023-05/Annual%20and%20ESG%20Report%202023.pdf): confirma o vínculo com produtores de Maués. Dados numéricos não foram usados na página.
-- Logo transparente e lata com condensação foram obtidos do próprio site oficial. Apenas margens transparentes foram retiradas; o produto não foi redesenhado, deformado nem recriado com IA.
-- O site usa uma família identificada no CSS como Bud Crafted. Sem comprovação de licença de redistribuição, não foi copiada. Anton e Barlow foram escolhidas pela coerência visual e legibilidade, com suas licenças OFL incluídas. As cores são tokens desta execução derivados dos códigos visuais observados, não uma alegação de valores oficiais de um manual de marca.
+HTML, CSS e JavaScript estáticos. GSAP 3.14.2 e ScrollTrigger locais foram preservados. Sem framework, backend, CMS, Three.js, Lenis, vídeo ou áudio. Nenhum site foi publicado nem domínio conectado.
 
-## Auditoria dos anexos
+Para iniciar novamente a partir desta pasta: `python3 -m http.server 5187 --bind 127.0.0.1`.
 
-Todos os oito anexos são RGB com fundo opaco. Mantêm as proporções originais.
+## Autoridade de marca
 
-| Imagem | Dimensões | Inspeção / decisão |
-| --- | --- | --- |
-| 1 — Original | 512 × 512 | Fundo branco, lata pequena na área; referência de produto. |
-| 2 — Logo | 736 × 736 | Logo sobre verde; substituído pelo logo oficial transparente. |
-| 3 — Original com gotas | 539 × 960 | Melhor packshot Original anexado; forma e rótulo correspondem ao asset servido no site. O recorte oficial transparente foi priorizado para preservar pixels reais. |
-| 4 — É coisa nossa | 236 × 214 | Referência de linguagem gráfica; resolução insuficiente para uso ampliado. |
-| 5 — Lata 0,33 L | 600 × 600 | Embalagem com indicação 0,33 L; não selecionada para a experiência brasileira de 350 ml. |
-| 6 — Lata 269 ml | 400 × 400 | Outro formato e resolução limitada; não selecionada. |
-| 7 — Zero | 500 × 500 | Produto pequeno dentro do quadro e baixa definição; não usado nesta etapa. |
-| 8 — Zero no cenário azul | 1199 × 1753 | Maior imagem anexada; cenário incorporado e fotografia sem recorte. Não é necessário no escopo atual. |
+A pesquisa usou o [site oficial](https://www.guaranaantarctica.com.br/pt-br), suas folhas de estilo e os screenshots anexados. O logo horizontal, os dois packshots de 350 ml, os backgrounds e as fotografias de campanha vêm do site oficial. As latas mantêm pixels, recorte e proporções reais; a embalagem não foi recriada com IA.
 
-Produto integrado: `assets/can.webp`, 371 × 681 pixels úteis. Logo: `assets/logo.webp`. Recomendação para o próximo refinamento: packshot oficial Original com pelo menos 2.000 pixels de altura útil para melhorar a nitidez do macrozoom. O atual funciona no hero, mas perde detalhe ao ampliar durante a transição.
+A fonte real da headline foi confirmada por computed styles: **Guarana Antarctica Bold**, 700, tracking normal e line-height de 80 px no banner consultado. Os títulos de campanhas usam **Kranafat**. O website também carrega **Guarana Antarctica Regular** e **Roboto**, usado na navegação. Nesta versão esses arquivos substituem Anton e Barlow.
 
-## Imagens geradas
+Fontes públicas servidas pelo site oficial e utilizadas localmente:
 
-Usado o gerador integrado Imagegen, com solicitação de máxima qualidade disponível. Higgsfield não foi usado, conforme a substituição autorizada pelo usuário. Não foram gerados vídeos.
+- [Guarana Antarctica Bold](https://www.guaranaantarctica.com.br/sites/g/files/wnfebl12901/files/cohesion/Guarana-Antarctica-Bold.ttf)
+- [Guarana Antarctica Regular](https://www.guaranaantarctica.com.br/sites/g/files/wnfebl12901/files/cohesion/Guarana-Antarctica-Regular.ttf)
+- [Kranafat](https://www.guaranaantarctica.com.br/sites/g/files/wnfebl12901/files/cohesion/Krana_Fat_A.ttf)
+- [Roboto](https://www.guaranaantarctica.com.br/sites/g/files/wnfebl12901/files/cohesion/Roboto-Regular.ttf)
 
-- `assets/origin.webp`: macro botânico panorâmico, 1672 × 941, ilustrativo; não é registro fotográfico de uma fazenda específica.
-- `assets/sprig.webp`: ramo de guaraná com alpha real, otimizado para o tamanho de exibição.
-- [Prompts completos](generation-prompts.json): instruções exatas usadas nas duas gerações.
-- [Style tile](style-tile.html): tokens, tipografia e direção de fotografia usados no site.
+A identidade usa verde, branco e amarelo, com o vermelho dos logos e embalagens. O amarelo `#FFCC00` foi confirmado nos títulos oficiais. Os backgrounds oficiais preservam seus tons e texturas. [Style tile atualizado](style-tile.html).
 
-## Motion e validação
+As campanhas e suas frases são as exibidas no site oficial: Natal brasileiro; Vai ficar em casa?; Futebol feminino é Coisa Nossa. Os links apontam aos vídeos associados a esses materiais. A [página oficial de Zero](https://www.guaranaantarctica.com.br/pt-br/produto/guarana-antarctica-zero) foi aberta e confirmou o formato de 350 ml e o destino usado nos CTAs.
 
-GSAP 3.14.2 + ScrollTrigger, servidos localmente. Sem Lenis, WebGL ou vídeo. Rolagem nativa, timeline reversível, zoom progressivo, preenchimento verde e abertura circular da cena botânica. O texto entra depois da passagem. Desktop usa cerca de 2,45 alturas de tela de deslocamento ativo; mobile usa 1,85.
+## Auditoria da MANA
 
-Verificado:
+Referência: [MANA Yerba Mate](https://en.manayerbamate.com/). Foram observados a troca de sabor, a rotação, o deslocamento da lata durante scroll e a passagem para o restante da página, incluindo o footer. Os screenshots fornecidos também mostram o pull tab aberto.
 
-- Sintaxe de JavaScript e existência de referências locais: PASS.
-- HTTP 200 e todas as imagens carregadas: PASS.
-- Hero e origem no Chrome desktop e Safari desktop: PASS.
-- Desktop 1440 × 900 e 1280 × 800: inspeção visual PASS.
-- Viewports 1024, 430, 393, 390 e 375 pixels: sem overflow horizontal após refresh. Hero mobile recomposto; origem e CTA inspecionados em 393 e 375.
-- Rolagem comum, reversão, CTA Maués, refresh e resize: PASS.
-- Movimento reduzido: testado em fixture local que simula a preferência; sem pin, duas cenas em fluxo normal e link para origem funcional. A configuração do sistema do usuário não foi alterada.
-- Nenhum erro ou aviso registrado no console do preview.
+A inspeção do DOM e do [bundle público](https://manayerbamate.com/cdn/shop/t/18/assets/global.js?v=70175767351616846921743419969) identificou:
 
-Limites: sem medição instrumental de FPS, CLS ou Lighthouse; sem dispositivo iPhone físico. Não se afirma 60 fps nem validação Safari iOS. Back/forward foram verificados na aba de preview.
+- canvas com WebGLRenderer/Three.js e câmera de perspectiva;
+- GLTFLoader e um modelo `MANA_canettes__v5_WEBGL.gltf`;
+- mapas de embalagem por sabor e iluminação HDR;
+- AnimationMixer e animações do modelo;
+- GSAP, ScrollTrigger, Lenis e requestAnimationFrame;
+- troca coordenada de textura, rotação e deslocamento lateral;
+- limite de DPR e adaptação do tamanho de renderização.
 
-## Arquivos
+Nenhum código, modelo, textura ou ilustração da MANA foi integrado ao projeto.
 
-`index.html` é a página; `styles.css` contém composição e breakpoints; `app.js` concentra o motion; `content.js` contém a copy editável. `assets/` e `vendor/` permitem servir o site sem dependências de rede externas. Os links externos apontam para destinos oficiais reais.
+## ProductExperience
+
+A implementação própria usa **CSS 2,5D** e dois packshots oficiais, controlados por uma única classe `ProductExperience`. Mantém produto atual/anterior, estado da troca, progresso, posição, rotação, escala e profundidade.
+
+O master GSAP coordena imagem, tipografia, background e entrada das cenas. Original sai lateralmente e recua; Zero entra pela lateral oposta e assume a mesma posição. A troca dos produtos não usa opacity. No final, clique, teclas laterais e drag horizontal usam o mesmo controlador, com interrupção segura em trocas rápidas.
+
+O desktop usa um palco fixado com 5,4 alturas de tela de deslocamento ativo. O mobile tem quatro cenas em fluxo natural, sem pin; o mesmo sistema acompanha a rolagem. Movimento reduzido apresenta quatro cenas estáticas e mantém a seleção por botão/teclado.
+
+Abertura da lata: **não implementada**. Os assets disponíveis são fotografias frontais; um giro de 360° ou pull tab articulado exigiria modelo ou renders fiéis da embalagem. A perspectiva usada aqui é limitada e não simula o verso da lata.
+
+## Assets
+
+| Asset | Origem / resolução |
+| --- | --- |
+| `assets/can.webp` | Site oficial; 371 × 681 px úteis, alpha real |
+| `assets/zero.webp` | Site oficial; 366 × 681 px úteis, alpha real |
+| `assets/logo-horizontal.webp` | Header oficial; 289 × 71 px, alpha real |
+| `assets/logo.webp` | Logo oficial; utilizado no footer |
+| `assets/product-bg.webp` | Background oficial; 1920 × 986 px |
+| `assets/brand-graphics.webp` | Grafismos oficiais; 1366 × 547 px |
+| `assets/culture-natal.webp` | Original oficial de 1920 × 1080, otimizado para 1600 × 900 |
+| `assets/culture-pipoca.webp` | Original oficial; 770 × 440 px |
+| `assets/culture-futebol.webp` | Original oficial; 770 × 440 px |
+
+Os oito assets da primeira entrega e os nove screenshots desta etapa foram inspecionados. Os screenshots servem como referência, não como página rasterizada. A fotografia fullscreen de fruto, os ramos gerados, suas fontes anteriores e o arquivo de prompts foram removidos do projeto servido. Nenhuma imagem nova foi gerada nesta etapa.
+
+Próximo refinamento possível: packshots oficiais Original e Zero em maior resolução, idealmente pelo menos 2000 px úteis de altura. Os atuais funcionam na composição e nas transições, mas têm limite de detalhe em telas Retina. Um modelo correto seria necessário apenas para rotação integral ou abertura.
+
+## Verificação
+
+- Quatro cenas, na ordem correta; nenhuma referência operacional à antiga seção.
+- Nenhum asset sem referência; nenhum CSS, GSAP ou ScrollTrigger da seção removida.
+- Sintaxe de JavaScript, caminhos locais e anchors: PASS.
+- Todos os arquivos servidos: HTTP 200; sem erros ou avisos no console do preview.
+- Viewports 1440, 1280, 1024, 430, 393, 390 e 375: sem overflow horizontal. Mobile sem pin.
+- Seleção Original → Zero e Zero → Original, troca rápida, teclado e drag: PASS, mantendo o scroll.
+- Movimento reduzido: fixture local simulando a preferência; quatro cenas, sem pin e seleção funcional. A configuração do sistema não foi alterada.
+- Refresh, resize e navegação de cenas foram exercitados. O estado é sincronizado depois do refresh do ScrollTrigger e o controlador interativo usa poses independentes.
+- Back/forward na aba de preview: verificado.
+
+Medição local no navegador integrado, viewport 1440 × 900, durante a troca de produtos: **120 frames; média 16,67 ms; p95 17,4 ms; máximo 17,7 ms; CLS 0; zero long tasks**. É uma amostra dessa interação nesse ambiente, não uma garantia universal de FPS. Os assets somam aproximadamente 984 KiB; sem render loop contínuo próprio, WebGL ou vídeos.
+
+Verificação retomada em 13/10/2026: Safari desktop e Google Chrome nativos foram exercitados com a versão atual. Hero, navegação entre cenas, seletor final, trocas rápidas e refresh funcionaram nos dois. A troca guiada por scroll e sua reversão também foram confirmadas no Safari. Screenshots dessa verificação foram salvos na pasta de entrega.
+
+Limite de verificação: as dimensões exatas e as métricas de performance acima foram medidas no navegador integrado; os testes nativos usaram o tamanho disponível da janela. Safari em iPhone físico ainda não foi testado.
+
+## Arquivos editáveis
+
+`index.html`: conteúdo e estrutura. `styles.css`: identidade e responsive. `app.js`: controlador, master timeline e interações. `content.js`: dados dos produtos e campanhas. `assets/`: arquivos oficiais otimizados. `vendor/`: GSAP e ScrollTrigger locais.
